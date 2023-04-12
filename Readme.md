@@ -1,0 +1,1 @@
+This is a file analyzer developed using Python, that can analyze all files in a specified folder, and sort them by file size, making it easy for users to find the files they need or delete unnecessary large files.
