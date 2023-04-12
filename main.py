@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
+import subprocess
 
 # 定義視窗和元件
 root = Tk()
@@ -54,6 +55,10 @@ def sort_column(tree, col, reverse):
     tree.heading(col, command=lambda: sort_column(tree, col, not reverse))
 
 # 定義點擊清單項目右鍵時的事件處理函數
+def open_file(filepath):
+    subprocess.call(["explorer", "/select,", filepath])
+
+# 定義點擊清單項目右鍵時的事件處理函數
 def popup_menu(event):
     # 選取滑鼠位置的項目
     item = file_list.identify_row(event.y)
@@ -64,9 +69,11 @@ def popup_menu(event):
         # 建立選單
         menu = Menu(root, tearoff=0)
         # 新增"在檔案總管中開啟"選項，點擊後會使用系統預設應用程式開啟該檔案
-        menu.add_command(label="在檔案總管中開啟", command=lambda: os.startfile(filepath[0:filepath.rfind("\\")]))
+        menu.add_command(label="在檔案總管中開啟", command=lambda: open_file(filepath))
         # 顯示選單
         menu.post(event.x_root, event.y_root)
+
+
 
 # 綁定點擊右鍵的事件處理函數
 file_list.bind("<Button-3>", popup_menu)
